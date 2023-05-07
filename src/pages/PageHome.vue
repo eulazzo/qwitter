@@ -43,11 +43,18 @@
 
     <q-separator size="10px" color="grey-2" class="divider" />
 
+    <transition-group  
+        appear 
+        enter-active-class="animated fadeIn slow"
+        leave-active-class="animated fadeOut slow"
+
+      />
+      
     <q-list separator>
       <q-item
         clickable
         v-ripple
-        class="q-py-md q-mb-md"
+        class="qweet q-py-md q-mb-md"
         v-for="qweet in qweets"
         :key="qweet.id"
       >
@@ -86,6 +93,8 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+
   </q-page>
 </template>
 
@@ -150,6 +159,11 @@ export default {
         date: Date.now(),
         id: Math.floor(Math.random() * 10000),
       });
+
+      this.setFieldsToEmpty();
+    },
+    setFieldsToEmpty() {
+      this.newQweetContent = "";
     },
   },
 };
@@ -160,6 +174,10 @@ export default {
   textarea
     font-size: 19px
     line-height: 1.4
+
+
+.qweet:not(:first-child)
+  border-top:1px solid rba(0,0,0,0.12)
 
 .divider
   border-top: 1px solid
