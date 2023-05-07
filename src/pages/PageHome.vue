@@ -29,6 +29,7 @@
       </div>
       <div class="col col-shrink">
         <q-btn
+          @click="setNewQweet"
           unelevated
           rounded
           color="primary"
@@ -69,17 +70,28 @@
             <q-btn flat round color="grey" size="sm" icon="far fa-comment" />
             <q-btn flat round color="grey" size="sm" icon="fas fa-retweet" />
             <q-btn flat round color="grey" size="sm" icon="far fa-heart" />
-            <q-btn flat round color="grey" size="sm" icon="fa fa-trash" />
+            <q-btn
+              flat
+              round
+              color="grey"
+              size="sm"
+              icon="fa fa-trash"
+              @click="deleteQweet(qweet.id)"
+            />
           </div>
         </q-item-section>
 
-        <q-item-section side top> 1 min ago </q-item-section>
+        <q-item-section side top>
+          {{ relativeDate(qweet.date) }}
+        </q-item-section>
       </q-item>
     </q-list>
   </q-page>
 </template>
 
 <script>
+import { formatDistance, subDays } from "date-fns";
+
 export default {
   name: "PageHome",
   data() {
@@ -91,7 +103,7 @@ export default {
           name: "Loraine",
           content:
             "JavaScript é uma linguagem de programação bastante popular no desenvolvimento web.",
-          date: 1651775835507,
+          date: 1683435854866,
           id: 0,
         },
         {
@@ -99,7 +111,7 @@ export default {
           name: "Larissa",
           content:
             "A programação orientada a objetos é um paradigma de programação que se baseia na utilização de objetos para representar dados e comportamentos.",
-          date: 1651775842998,
+          date: 1683435866848,
           id: 1,
         },
         {
@@ -107,7 +119,7 @@ export default {
           name: "André Alves",
           content:
             "CSS é uma linguagem de folhas de estilo utilizada para definir a aparência de documentos HTML.",
-          date: 1651775860789,
+          date: 1683435873689,
           id: 2,
         },
         {
@@ -121,13 +133,26 @@ export default {
       ],
     };
   },
+
+  methods: {
+    relativeDate(value) {
+      return formatDistance(value, new Date());
+    },
+
+    deleteQweet(id) {
+      this.qweets = this.qweets.filter((item) => item.id != id);
+    },
+    setNewQweet() {
+      this.qweets.unshift({
+        username: "@eulazzo",
+        name: "Lázaro",
+        content: this.newQweetContent,
+        date: Date.now(),
+        id: Math.floor(Math.random() * 10000),
+      });
+    },
+  },
 };
-
-//46 min
-//https://www.youtube.com/watch?v=la-0ulfn0_M&list=PLA1RSE1qWuKClzNo6jVN6BMyVOWNR-ymd&index=8&ab_channel=freeCodeCamp.org
-
-//10min
-//https://www.youtube.com/watch?v=Oi3uBuA-Wm0&list=PLJ4k1IC8GhW0bOvBC4Z4hTvn1fVKGE7or&index=5&ab_channel=JoseCarlosMacoratti
 </script>
 
 <style scoped lang="sass">
