@@ -1,5 +1,6 @@
 <template>
-  <q-page>
+  <q-page class="relative-position">
+    <q-scroll-area class="absolute fullscreen" />
     <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
       <div class="col">
         <q-input
@@ -43,13 +44,12 @@
 
     <q-separator size="10px" color="grey-2" class="divider" />
 
-    <transition-group  
-        appear 
-        enter-active-class="animated fadeIn slow"
-        leave-active-class="animated fadeOut slow"
+    <transition-group
+      appear
+      enter-active-class="animated fadeIn slow"
+      leave-active-class="animated fadeOut slow"
+    />
 
-      />
-      
     <q-list separator>
       <q-item
         clickable
@@ -67,7 +67,12 @@
         <q-item-section>
           <q-item-label class="text-subtitle1">
             <strong>{{ qweet.name }}</strong>
-            <span class="text-grey-7">{{ qweet.username }}</span>
+            <span class="text-grey-7"
+              >{{ qweet.username }}
+              <br class="lt-md" />
+              &bull;
+              {{ relativeDate(qweet.date) }}
+            </span>
           </q-item-label>
           <q-item-label class="qweet-content text-body1">
             {{ qweet.content }}
@@ -87,14 +92,9 @@
             />
           </div>
         </q-item-section>
-
-        <q-item-section side top>
-          {{ relativeDate(qweet.date) }}
-        </q-item-section>
       </q-item>
     </q-list>
-
-
+    <q-scroll-area />
   </q-page>
 </template>
 
